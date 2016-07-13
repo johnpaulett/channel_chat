@@ -1,0 +1,10 @@
+/*
+ * http://eslint.org/
+ */
+{
+  // https://github.com/airbnb/javascript
+  "extends": "airbnb",
+  "env": {
+    "mocha": true
+  }
+}

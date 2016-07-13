@@ -1,0 +1,14 @@
+Django==1.9.7
+
+pytz==2016.4
+psycopg2==2.6.2
+
+# Channels
+channels==0.16.0
+daphne==0.14.2
+asgi_redis==0.13.1
+redis==2.10.5
+
+# Celery
+celery==3.1.23
+kombu==3.0.35

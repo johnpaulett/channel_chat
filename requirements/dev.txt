@@ -1,0 +1,6 @@
+-r base.txt
+
+flake8==2.5.4
+isort==4.2.5
+
+ipython==5.0.0

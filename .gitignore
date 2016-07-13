@@ -1,0 +1,9 @@
+*.pyc
+*.pyo
+*.log
+*.egg-info
+*\~
+*\#*
+
+/env/
+/node_modules/
