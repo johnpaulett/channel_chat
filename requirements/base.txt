@@ -12,3 +12,8 @@ redis==2.10.5
 # Celery
 celery==3.1.23
 kombu==3.0.35
+
+# Testing
+factory_boy==2.7.0
+fake_factory==0.5.9
+python_dateutil==2.5.3

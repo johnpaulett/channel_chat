@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 
     'channels',
 
+    'chat',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -66,7 +67,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        # 'django.db.backends.sqlite3'
+        # 'django.contrib.gis.db.backends.postgis'
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'channel_chat',
         'USER': 'channel_chat',
         'PASSWORD': 'channel_chat',
