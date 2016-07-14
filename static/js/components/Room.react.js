@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 
 const RoomItem = ({ name, active, onClick }) => (
-  <li onClick={onClick} style={{ fontWeight: active ? 'bold' : 'normal' }}>
-    {name}
+  <li className="room" onClick={onClick} style={{ fontWeight: active ? 'bold' : 'normal' }}>
+    <span className="glyphicon glyphicon-user"></span>
+    @{name}
   </li>
 );
 

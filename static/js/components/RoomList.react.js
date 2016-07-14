@@ -3,11 +3,14 @@ import Room from './Room.react';
 
 
 const RoomList = ({ rooms, onRoomClick }) => (
-  <ul>
-    {rooms.map(room =>
-      <Room key={room.id} {...room} onClick={() => onRoomClick(room.name)} />
-     )}
-  </ul>
+  <div>
+    <h3>Rooms</h3>
+    <ul className="room-list list-unstyled">
+      {rooms.map(room =>
+        <Room key={room.id} {...room} onClick={() => onRoomClick(room.name)} />
+       )}
+    </ul>
+  </div>
 );
 
 RoomList.propTypes = {

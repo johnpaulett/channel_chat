@@ -5,9 +5,9 @@ import Author from './Author.react';
 
 const ChatRoom = ({ room, messages }) => (
   <div>
-    <div>
-      {room}
-    </div>
+    <h3>
+      @{room}
+    </h3>
     <MessageList messages={messages} />
     <Author />
   </div>

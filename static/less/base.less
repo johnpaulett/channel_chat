@@ -4,10 +4,36 @@
 
 
 body {
-  padding-top: @navbar-height;
-  padding-bottom: 20px;
+    padding-top: @navbar-height;
+    padding-bottom: 20px;
+
+    font-weight: 200;
 }
 
 .navbar {
-  margin-bottom: @navbar-height;
+    margin-bottom: @navbar-height;
+}
+
+.message-list {
+
+}
+.message {
+    .user {
+        font-weight: bold;
+    }
+    .timestamp {
+        .text-muted;
+        .pull-right;
+        font-size: @font-size-small;
+    }
+}
+.room-list {
+
+    .room {
+        cursor: pointer;
+
+        &:hover {
+            background-color: @gray-lighter;
+        }
+    }
 }

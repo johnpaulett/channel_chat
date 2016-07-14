@@ -107,6 +107,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     abspath('static'),
+    # TODO Better loadint
+    abspath('node_modules/bootstrap/fonts'),
 ]
 
 # channels

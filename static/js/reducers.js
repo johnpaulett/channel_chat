@@ -19,14 +19,19 @@ const initialState = {
 
 function chatApp(state = initialState, action) {
   switch (action.type) {
-    // TODO Handle actions to transform state
-    // case ACTION_TYPE:
-    //   return Object.assign({}, state, { ... });
+    case ActionTypes.RECEIVE_MESSAGES:
+      // TODO
+      return state;
+
     case ActionTypes.SELECT_ROOM:
       return Object.assign({}, state, {
         currentRoom: action.room,
       });
 
+    case ActionTypes.LOGIN:
+      return Object.assign({}, state, {
+        currentUser: action.user,
+      });
     default:
       return state;
   }

@@ -5,10 +5,12 @@ class Message extends React.Component {
   render() {
     const date = new Date(this.props.timestamp);
     return (
-      <div>
-        {this.props.user}:
+      <div className="message">
+        <span className="user">{this.props.user}:</span>
         {this.props.content}
-        <span>{date.toISOString()}</span>
+        <span className="timestamp">
+          {date.toISOString()}
+        </span>
       </div>
     );
   }
