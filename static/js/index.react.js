@@ -3,16 +3,16 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import reducerApp from './reducers';
-import App from './components/App.react';
+import chatApp from './reducers';
+import Root from './components/Root.react';
 
 
-const store = createStore(reducerApp);
+const store = createStore(chatApp);
 
 if (typeof document !== 'undefined') {
   render(
     <Provider store={store}>
-      <App />
+      <Root />
     </Provider>,
     document.getElementById('root')
   );

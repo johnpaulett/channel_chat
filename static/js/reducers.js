@@ -1,9 +1,12 @@
 const initialState = {
-
+  currentUser: 'bob',
+  currentRoom: 'alice',
+  rooms: [],
+  messages: [],
 };
 
 
-function reducerApp(state = initialState, action) {
+function chatApp(state = initialState, action) {
   switch (action.type) {
     // TODO Handle actions to transform state
     // case ACTION_TYPE:
@@ -13,4 +16,4 @@ function reducerApp(state = initialState, action) {
   }
 }
 
-export default reducerApp;
+export default chatApp;
