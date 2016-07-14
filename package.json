@@ -48,6 +48,6 @@
     ]
   },
   "author": "John Paulett <john@paulett.org>",
-  "license": "UNLICENSED",
+  "license": "BSD",
   "private": true
 }
