@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import chatApp from './reducers';
-import Root from './components/Root.react';
+import Root from './containers/Root.react';
 
 
 const loggerMiddleware = createLogger();

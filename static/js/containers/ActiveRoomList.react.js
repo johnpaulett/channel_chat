@@ -3,21 +3,16 @@ import { selectRoom } from '../actions';
 import RoomList from '../components/RoomList.react';
 
 
-const mapStateToProps = (state) => {
-  return {
-    currentRoom: state.currentRoom,
-    rooms: state.rooms,
-  };
-};
+const mapStateToProps = (state) => ({
+  currentRoom: state.currentRoom,
+  rooms: state.rooms,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onRoomClick: (id) => {
-      console.log(id)
-      dispatch(selectRoom(id));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onRoomClick: (room) => {
+    dispatch(selectRoom(room));
+  },
+});
 
 const ActiveRoomList = connect(
   mapStateToProps,

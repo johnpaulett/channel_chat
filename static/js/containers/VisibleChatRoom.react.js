@@ -1,25 +1,21 @@
 import { connect } from 'react-redux';
-import { selectRoom } from '../actions';
+import { sendMessage } from '../actions';
 import ChatRoom from '../components/ChatRoom.react';
 
-const getVisibleMessages = (messages, room) => {
-  return messages.filter(m => m.room === room);
-};
+const getVisibleMessages = (messages, room) => (
+  messages.filter(m => m.room === room)
+);
 
-const mapStateToProps = (state) => {
-  return {
-    room: state.currentRoom,
-    messages: getVisibleMessages(state.messages, state.currentRoom),
-  };
-};
+const mapStateToProps = (state) => ({
+  room: state.currentRoom,
+  messages: getVisibleMessages(state.messages, state.currentRoom),
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onAuthorClick: (id) => {
-      dispatch(selectRoom(id));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onSendClick: (room, content) => {
+    dispatch(sendMessage(room, content));
+  },
+});
 
 const VisibleChatRoom = connect(
   mapStateToProps,

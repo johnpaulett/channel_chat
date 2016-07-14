@@ -1,15 +1,12 @@
 import ActionTypes from './constants';
 
-export const loginUser = (user) => {
-  return {
-    type: ActionTypes.LOGIN,
-    user,
-  };
-};
+export const loginUser = (user) => ({
+  type: ActionTypes.LOGIN,
+  user,
+});
 
-export const selectRoom = (room) => {
-  return {
-    type: ActionTypes.SELECT_ROOM,
-    room,
-  };
-};
+
+export const selectRoom = (room) => ({
+  type: ActionTypes.SELECT_ROOM,
+  room,
+});
