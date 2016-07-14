@@ -16,7 +16,7 @@ MessageList.propTypes = {
     room: PropTypes.string.isRequired,
     user: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    date: PropTypes.object.isRequired, //TODO date not object
+    timestamp: PropTypes.number.isRequired,
   }).isRequired).isRequired,
 };
 

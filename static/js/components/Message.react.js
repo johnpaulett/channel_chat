@@ -1,17 +1,23 @@
 import React, { PropTypes } from 'react';
 
-const Message = ({ user, content, date }) => (
-  <div>
-    {user}:
-    {content}
-    <span>{date}</span>
-  </div>
-);
+class Message extends React.Component {
+  //const Message = ({ user, content, timestamp }) => (
+  render() {
+    const date = new Date(this.props.timestamp);
+    return (
+      <div>
+        {this.props.user}:
+        {this.props.content}
+        <span>{date.toISOString()}</span>
+      </div>
+    );
+  }
+}
 
 Message.propTypes = {
   user: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  date: PropTypes.object.isRequired, //TODO date not object
+  timestamp: PropTypes.number.isRequired, //TODO date not object
 };
 
 export default Message;

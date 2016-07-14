@@ -5,7 +5,7 @@ import Room from './Room.react';
 const RoomList = ({ rooms, onRoomClick }) => (
   <ul>
     {rooms.map(room =>
-      <Room key={room.id} {...room} onClick={() => onRoomClick(room.id)} />
+      <Room key={room.id} {...room} onClick={() => onRoomClick(room.name)} />
      )}
   </ul>
 );
