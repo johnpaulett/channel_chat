@@ -1,15 +1,19 @@
 
+// TODO Consider re-implementing ChatAPI as a class, instead of using a
+// module-level global
+// FIXME on error / reconnect
+let _socket = null;
 
-class ChatAPI {
-  constructor() {
+export const ChatAPI = {
+  connect: () => {
     // Use wss:// if running on https://
     const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
     const url = `${scheme}://${window.location.host}/chat`;
-    this.socket = new WebSocket(url);
-  }
+    _socket = new WebSocket(url);
+  },
 
-  listen(dispatch) {
-    this.socket.onmessage = (event) => {
+  listen: (dispatch) => {
+    _socket.onmessage = (event) => {
       /* We cheat a little bit by using the Redux-style Actions as our
        * communication protocol with the server. This hack allows
        * the server to directly act as a Action Creator, which we
@@ -19,14 +23,12 @@ class ChatAPI {
       const action = JSON.parse(event.data);
       dispatch(action);
     };
-  }
+  },
 
-  send(action) {
-    this.socket.send(JSON.stringify(action));
-  }
-}
+  send: (action) => {
+    _socket.send(JSON.stringify(action));
+  },
+};
 
-// FIXME on error / reconnect
-const api = new ChatAPI();
-
-export default api;
+//const api = new ChatAPI();
+//export default ChatAPI;

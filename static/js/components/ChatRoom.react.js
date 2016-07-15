@@ -16,7 +16,7 @@ class ChatRoom extends React.Component {
   render() {
     return (
       <div>
-        <h3>@{this.props.room}</h3>
+        <h3 className="room-name">@{this.props.room}</h3>
         <MessageList messages={this.props.messages} />
         <Author onSendMessage={this._handleSendMessage} />
       </div>
