@@ -1,16 +1,28 @@
 from channels import Group
+from channels.sessions import channel_session
+
+from .models import Message, Room, User
+
+import json
 
 
-# Connected to websocket.connect
+@channel_session
 def ws_add(message):
     Group('chat').add(message.reply_channel)
 
-# Connected to websocket.receive
+
+@channel_session
 def ws_message(message):
+    print(message.content)
+    action = json.loads(message.content['text'])
     Group('chat').send({
-        'text': '[user] %s' % message.content['text'],
+        'text': json.dumps(action),
+        # 'text': json.dumps({
+        #     'content': action['content']
+        # }),
     })
 
-# Connected to websocket.disconnect
+
+@channel_session
 def ws_disconnect(message):
     Group('chat').discard(message.reply_channel)

@@ -21,7 +21,7 @@ const store = createStore(
 );
 
 if (typeof document !== 'undefined') {
-  api.listen();
+  api.listen(store.dispatch);
 
   render(
     <Provider store={store}>

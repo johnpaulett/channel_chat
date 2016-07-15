@@ -8,7 +8,7 @@ import ChatApp from '../components/ChatApp.react';
 class Root extends React.Component {
 
   render() {
-    const content = this.props.currentUser === null ? <Login onHandleChange={this.props.onHandleChange} /> : <ChatApp />;
+    const content = this.props.currentUser === null ? <Login onUserChange={this.props.handleUserChange} /> : <ChatApp />;
     return (
       <div className="container">
         {content}
@@ -19,6 +19,7 @@ class Root extends React.Component {
 
 Root.propTypes = {
   currentUser: PropTypes.string,
+  handleUserChange: PropTypes.func.isRequired,
 };
 
 
@@ -27,8 +28,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onHandleChange: (user) => {
-    console.log(user);
+  handleUserChange: (user) => {
     dispatch(loginUser(user));
   },
 });

@@ -1,10 +1,15 @@
 import ActionTypes from './constants';
 import api from './utils/ChatAPI';
 
-export const loginUser = (user) => ({
-  type: ActionTypes.LOGIN,
-  user,
-});
+export function loginUser(user) {
+  console.log(user)
+  return () => {
+    api.send({
+      type: ActionTypes.LOGIN,
+      user,
+    });
+  };
+}
 
 
 export const selectRoom = (room) => ({
@@ -21,8 +26,5 @@ export function sendMessage(room, content) {
       room,
       content,
     });
-
-    // let it know we're done
-    return Promise.resolve();
   };
 }

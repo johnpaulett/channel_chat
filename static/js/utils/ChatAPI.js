@@ -8,10 +8,16 @@ class ChatAPI {
     this.socket = new WebSocket(url);
   }
 
-  listen() {
+  listen(dispatch) {
     this.socket.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      // TODO Handle message
+      /* We cheat a little bit by using the Redux-style Actions as our
+       * communication protocol with the server. This hack allows
+       * the server to directly act as a Action Creator, which we
+       * simply `dispatch()`.  Consider separating communication format
+       * from client-side action API.
+       */
+      const action = JSON.parse(event.data);
+      dispatch(action);
     };
   }
 
