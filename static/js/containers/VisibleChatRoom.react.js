@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSendClick: (room, content) => {
+  handleSendMessage: (room, content) => {
     dispatch(sendMessage(room, content));
   },
 });

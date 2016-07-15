@@ -8,6 +8,7 @@ import createLogger from 'redux-logger';
 import chatApp from './reducers';
 import Root from './containers/Root.react';
 
+import api from './utils/ChatAPI';
 
 const loggerMiddleware = createLogger();
 
@@ -20,6 +21,8 @@ const store = createStore(
 );
 
 if (typeof document !== 'undefined') {
+  api.listen();
+
   render(
     <Provider store={store}>
       <Root />
