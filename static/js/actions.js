@@ -2,7 +2,6 @@ import ActionTypes from './constants';
 import { ChatAPI } from './utils/ChatAPI';
 
 export function loginUser(user) {
-  console.log(user)
   return () => {
     ChatAPI.send({
       type: ActionTypes.LOGIN,
