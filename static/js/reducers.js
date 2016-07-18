@@ -23,12 +23,17 @@ function chatApp(state = initialState, action) {
       // TODO
       return state;
 
+    case ActionTypes.RECEIVE_ROOMS:
+      return Object.assign({}, state, {
+        rooms: action.rooms,
+      });
+      
     case ActionTypes.SELECT_ROOM:
       return Object.assign({}, state, {
         currentRoom: action.room,
       });
 
-    case ActionTypes.LOGIN:
+    case ActionTypes.LOGIN_SUCCESS:
       return Object.assign({}, state, {
         currentUser: action.user,
       });
