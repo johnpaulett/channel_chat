@@ -1,36 +1,81 @@
 import ActionTypes from './constants';
+import _ from 'lodash';
+
 
 const initialState = {
-  currentUser: 'bob',
-  currentRoom: 'alice',
+  currentUser: null,
+  currentRoomId: null,
   rooms: [
-    { id: 1, name: 'alice', active: true },
+    /* { id: 1, name: 'alice', active: true },
     { id: 2, name: 'bob', active: true },
     { id: 3, name: 'eve', active: false },
     { id: 4, name: 'grace', active: false },
+    */
   ],
   messages: [
-    { id: 1, content: 'hello world', user: 'alice', room: 'alice', timestamp: Date.now() },
-    { id: 2, content: 'Hey!', user: 'bob', room: 'alice', timestamp: Date.now() },
-    { id: 3, content: 'Welcome Bob', user: 'bob', room: 'grace', timestamp: Date.now() },
+    /*
+    { id: 1, content: 'hello world', user: 'alice', roomId: 1,
+       timestamp: Date.now()/1000 },
+    { id: 2, content: 'Hey!', user: 'bob', roomId: 1,
+       timestamp: Date.now()/1000 },
+    { id: 3, content: 'Welcome Bob', user: 'bob', roomId: 4,
+       timestamp: Date.now()/1000 },
+     */
   ],
 };
 
 
-function chatApp(state = initialState, action) {
+function reducer(state = initialState, action) {
   switch (action.type) {
+    // TODO Single Message Notification
+    /*
+       case ActionTypes.RECEIVE_MESSAGE:
+       if ('Notification' in window) {
+       Notification.requestPermission().then(function(permission) {
+       if (permission === 'granted') {
+       const n = new Notification(message.room, {
+       body: message.content,
+       });
+       n.onclick(function(event){
+       // event.preventDefault();
+       // open the room that contains this message
+       });
+       setTimeout(n.close.bind(n), 3000);
+       }
+       });
+       ... continue and add to state */
+
     case ActionTypes.RECEIVE_MESSAGES:
-      // TODO
-      return state;
+      // Ensure no duplicate messages
+      const messages = _.unionWith(
+        state.messages,
+        action.messages,
+        (x, y) => x.id === y.id
+      );
+      return Object.assign({}, state, {
+        messages,
+      });
 
     case ActionTypes.RECEIVE_ROOMS:
+      const rooms = action.rooms;
+      let currentRoomId = state.currentRoomId;
+
+      // For the intial state, just open the first chat room.
+      // TODO Should be the last-opened room (via Cookie, server, or max ID)
+      // TODO Consider that this should dispatch SELECT_ROOM instead of directly
+      // setting currentRoomId
+      if (currentRoomId === null && rooms.length > 0) {
+        currentRoomId = rooms[0].id;
+      }
+
       return Object.assign({}, state, {
-        rooms: action.rooms,
+        rooms,
+        currentRoomId,
       });
-      
+
     case ActionTypes.SELECT_ROOM:
       return Object.assign({}, state, {
-        currentRoom: action.room,
+        currentRoomId: action.room.id,
       });
 
     case ActionTypes.LOGIN_SUCCESS:
@@ -42,4 +87,4 @@ function chatApp(state = initialState, action) {
   }
 }
 
-export default chatApp;
+export default reducer;

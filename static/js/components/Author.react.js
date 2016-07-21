@@ -20,9 +20,13 @@ const Author = ({ onSendMessage }) => {
   };
 
   return (
-    <form className="form-inline" onSubmit={handleSendMessage}>
-      <input type="text" className="form-control" ref={setInput} />
-      <button type="submit" className="btn btn-primary">send</button>
+    <form onSubmit={handleSendMessage}>
+      <div className="input-group">
+        <input type="text" autoFocus="autofocus" className="form-control" ref={setInput} />
+        <span className="input-group-btn">
+          <button type="submit" className="btn btn-primary">send</button>
+        </span>
+      </div>
     </form>
   );
 };

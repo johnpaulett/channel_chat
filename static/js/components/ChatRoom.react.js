@@ -10,13 +10,16 @@ class ChatRoom extends React.Component {
   }
 
   _handleSendMessage(content) {
-    return this.props.handleSendMessage(this.props.room, content);
+    return this.props.handleSendMessage(this.props.room.id, content);
   }
 
   render() {
+    if (typeof this.props.room === 'undefined') {
+      return <div>Select Room</div>;
+    }
     return (
       <div>
-        <h3 className="room-name">@{this.props.room}</h3>
+        <h3 className="room-name">@{this.props.room.name}</h3>
         <MessageList messages={this.props.messages} />
         <Author onSendMessage={this._handleSendMessage} />
       </div>
@@ -25,7 +28,10 @@ class ChatRoom extends React.Component {
 }
 
 ChatRoom.propTypes = {
-  room: PropTypes.string.isRequired,
+  room: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
   messages: PropTypes.array,
   handleSendMessage: PropTypes.func.isRequired,
 };

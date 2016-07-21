@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import chatApp from './reducers';
+import reducer from './reducers';
 import Root from './containers/Root.react';
 
 import { ChatAPI } from './utils/ChatAPI';
@@ -13,7 +13,7 @@ import { ChatAPI } from './utils/ChatAPI';
 const loggerMiddleware = createLogger();
 
 const store = createStore(
-  chatApp,
+  reducer,
   applyMiddleware(
     thunkMiddleware,
     loggerMiddleware
@@ -22,7 +22,7 @@ const store = createStore(
 
 if (typeof document !== 'undefined') {
   ChatAPI.connect();
-  ChatAPI.listen(store.dispatch);
+  ChatAPI.listen(store);
 
   render(
     <Provider store={store}>

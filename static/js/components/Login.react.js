@@ -21,10 +21,14 @@ const Login = ({ onUserChange }) => {
 
   return (
     <div className="row">
-      <div className="col-md-8 col-md-push-2">
-        <form className="form-inline" onSubmit={handleUserChange}>
-          <input type="text" className="form-control" placeholder="handle" ref={setInput} />
-          <button type="submit" className="btn btn-primary">login</button>
+      <div className="col-md-4 col-md-push-4">
+        <form className="login-form" onSubmit={handleUserChange}>
+          <div className="input-group">
+            <input type="text" autoFocus="autofocus" className="form-control" placeholder="handle" ref={setInput} />
+            <span className="input-group-btn">
+              <button type="submit" className="btn btn-primary">login</button>
+            </span>
+          </div>
         </form>
       </div>
     </div>

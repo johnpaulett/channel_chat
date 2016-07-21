@@ -4,7 +4,7 @@ import RoomList from '../components/RoomList.react';
 
 
 const mapStateToProps = (state) => ({
-  currentRoom: state.currentRoom,
+  currentRoomId: state.currentRoomId,
   rooms: state.rooms,
 });
 
