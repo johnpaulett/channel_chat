@@ -2,11 +2,13 @@ PYTHON = env/bin/python3
 PIP = env/bin/pip
 MANAGE = $(PYTHON) manage.py
 
+.PHONY: static
+
 env: requirements
 	test -f $(PYTHON) || virtualenv --python=python3 --no-site-packages env
 	$(PIP) install -U -r requirements/dev.txt
 
-serve: env
+serve:
 	$(MANAGE) runserver 0.0.0.0:5000
 
 shell:
@@ -14,12 +16,22 @@ shell:
 
 createdb:
 	sudo -u postgres createuser -d -A -R -P channel_chat
-	sudo -u postgres createdb -T template_postgis -E UTF8 -O channel_chat channel_chat
+	sudo -u postgres createdb -E UTF8 -O channel_chat channel_chat
 
 migrate:
 	$(MANAGE) migrate
 
-test:
+static:
+	# Assumes prior `nvm use 6`
+	npm install
+	npm run less
+	npm start
+
+test-py:
 	$(MANAGE) test apps
 
+test-js:
+	# Assumes prior `nvm use 6`
+	npm test
 
+test: test-py test-js
