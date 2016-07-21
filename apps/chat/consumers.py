@@ -1,4 +1,3 @@
-from channels import Group
 from channels.sessions import channel_session
 
 from .engine import ChatEngine
@@ -6,7 +5,7 @@ from .engine import ChatEngine
 
 @channel_session
 def ws_add(message):
-    Group('chat').add(message.reply_channel)
+    pass
 
 
 @channel_session
@@ -17,4 +16,4 @@ def ws_message(message):
 
 @channel_session
 def ws_disconnect(message):
-    Group('chat').discard(message.reply_channel)
+    ChatEngine(message).disconnect()

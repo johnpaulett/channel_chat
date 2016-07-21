@@ -43,7 +43,12 @@ class ActionEngine(object):
     def add(self, group):
         Group(group).add(self.message.reply_channel)
 
-    def send(self, group, action):
-        Group(group).send({
+    def send(self, action, to=None):
+        if to is None:
+            to = self.message.reply_channel
+        to.send({
             'text': json.dumps(action),
         })
+
+    def send_to_group(self, group, action):
+        self.send(action, to=Group(group))
