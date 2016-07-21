@@ -125,9 +125,17 @@ class ChatEngine(ActionEngine):
     def REQUEST_MESSAGES(self, action):
         # latest_id, room
 
-        params = Q(
-            room_id=action['roomId']
-        )
+        params = Q()
+
+        if 'roomId' in action:
+            params &= Q(room_id=action['roomId'])
+        elif 'user' in action:
+            params &= Q(room__users__username=action['user'])
+        elif 'lastMessageId' in action:
+            # Any messages that occured at or later than time of lastMessage
+            params &= Q(
+                timestamp__gte=Message.objects.get(id=action['lastMessageId'])
+            )
 
         messages = Message.objects.filter(
             params

@@ -1,6 +1,6 @@
 import ReconnectingWebSocket from 'shopify-reconnecting-websocket';
-import loginUser from '../actions';
 import ActionTypes from '../constants';
+import _ from 'lodash';
 
 
 const receiveSocketMessage = (dispatch, action) => {
@@ -11,11 +11,28 @@ const receiveSocketMessage = (dispatch, action) => {
    * from client-side action API.
    */
   switch (action.type) {
-    
+
     case ActionTypes.RECEIVE_MESSAGES:
     default:
       return dispatch(action);
   }
+};
+
+const reconnect = (state) => {
+  // TODO loginUser did not work because of circular import -- refactor
+  ChatAPI.send({
+    type: ActionTypes.LOGIN,
+    user: state.currentUser,
+  });
+
+  // TODO Delay the REQUEST_MESSAGES until after the LOGIN returns
+  // Ensure we did not miss any messages
+  const lastMessage = _.maxBy(state.messages, (m) => m.id);
+  ChatAPI.send({
+    type: ActionTypes.REQUEST_MESSAGES,
+    lastMessageId: typeof lastMessage === 'undefined' ? 0 : lastMessage.id,
+    user: state.currentUser,
+  });
 };
 
 
@@ -44,11 +61,7 @@ export const ChatAPI = {
       // On Reconnect, need to re-login, so the channel_session['user']
       // is populated
       if (state.currentUser !== null) {
-        // TODO loginUser did not work because of circular import -- refactor
-        ChatAPI.send({
-          type: ActionTypes.LOGIN,
-          user: state.currentUser,
-        });
+        reconnect(state);
       }
     };
   },
