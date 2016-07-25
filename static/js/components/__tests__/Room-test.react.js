@@ -14,7 +14,7 @@ describe('<Room />', () => {
     );
 
     expect(wrapper.hasClass('room')).to.equal(true);
-    expect(wrapper.find('.room').text()).to.equal('@bob');
+    expect(wrapper.find('.room').text()).to.equal('bob');
   });
 
   it('handles click', () => {

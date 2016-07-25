@@ -11,7 +11,23 @@ const receiveSocketMessage = (dispatch, action) => {
    * from client-side action API.
    */
   switch (action.type) {
-
+    // TODO Single Message Notification
+    /*
+       case ActionTypes.RECEIVE_MESSAGE:
+       if ('Notification' in window) {
+       Notification.requestPermission().then(function(permission) {
+       if (permission === 'granted') {
+       const n = new Notification(message.room, {
+       body: message.content,
+       });
+       n.onclick(function(event){
+       // event.preventDefault();
+       // open the room that contains this message
+       });
+       setTimeout(n.close.bind(n), 3000);
+       }
+       });
+       ... continue to dispatch() */
     case ActionTypes.RECEIVE_MESSAGES:
     default:
       return dispatch(action);

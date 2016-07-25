@@ -20,7 +20,8 @@ class ChatRoom extends React.Component {
     return (
       <div>
         <h3 className="room-name">@{this.props.room.name}</h3>
-        <MessageList messages={this.props.messages} />
+        <MessageList messages={this.props.messages} room={this.props.room}
+                     handleMessageScroll={this.props.handleMessageScroll} />
         <Author onSendMessage={this._handleSendMessage} />
       </div>
     );
@@ -34,6 +35,7 @@ ChatRoom.propTypes = {
   }),
   messages: PropTypes.array,
   handleSendMessage: PropTypes.func.isRequired,
+  handleMessageScroll: PropTypes.func.isRequired,
 };
 
 export default ChatRoom;

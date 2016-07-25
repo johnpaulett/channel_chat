@@ -3,11 +3,9 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'chat/index.html', {
-    })
+    return render(request, 'chat/index.html')
 
 
 def robots(request):
     """`robot.txt <http://www.robotstxt.org>`_"""
     return HttpResponse('User-agent: *\nDisallow: /')
-

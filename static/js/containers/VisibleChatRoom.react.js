@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { sendMessage } from '../actions';
+import { requestPriorMessages, sendMessage } from '../actions';
 import ChatRoom from '../components/ChatRoom.react';
 
 const getVisibleMessages = (messages, roomId) => (
@@ -22,6 +22,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   handleSendMessage: (room, content) => {
     dispatch(sendMessage(room, content));
+  },
+  handleMessageScroll: (room, messages) => {
+    dispatch(requestPriorMessages(room, messages));
   },
 });
 

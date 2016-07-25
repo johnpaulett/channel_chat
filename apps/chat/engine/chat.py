@@ -129,13 +129,16 @@ class ChatEngine(ActionEngine):
 
         if 'roomId' in action:
             params &= Q(room_id=action['roomId'])
-        elif 'user' in action:
+        if 'user' in action:
             params &= Q(room__users__username=action['user'])
-        elif 'lastMessageId' in action:
+        if 'lastMessageId' in action:
             # Any messages that occured at or later than time of lastMessage
-            params &= Q(
-                timestamp__gte=Message.objects.get(id=action['lastMessageId'])
-            )
+            prior = Message.objects.get(id=action['lastMessageId'])
+            params &= Q(timestamp__gte=prior.timestamp)
+        if 'firstMessageId' in action:
+            # Any messages that occured before the than time of lastMessage
+            prior = Message.objects.get(id=action['firstMessageId'])
+            params &= Q(timestamp__lte=prior.timestamp)
 
         messages = Message.objects.filter(
             params

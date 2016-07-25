@@ -20,7 +20,12 @@ const store = createStore(
   )
 );
 
-if (typeof document !== 'undefined') {
+
+// Under mocha test? via http://stackoverflow.com/a/29183140/82872
+// TODO Undo
+const isInTest = typeof global.it === 'function';
+
+if (!isInTest) {
   ChatAPI.connect();
   ChatAPI.listen(store);
 

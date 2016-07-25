@@ -11,8 +11,9 @@ import MessageList from '../MessageList.react';
 
 describe('<ChatRoom />', () => {
   it('renders room name', () => {
+    const room = { id: 10, name: 'ted' };
     const wrapper = shallow(
-      <ChatRoom room="ted" />
+      <ChatRoom room={room} />
     );
     expect(wrapper.find('.room-name').text()).to.equal('@ted');
   });

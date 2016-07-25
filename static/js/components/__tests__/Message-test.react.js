@@ -16,7 +16,7 @@ describe('<Message />', () => {
     // Had issues using .contains(), so using find().text()
     expect(wrapper.find('.user').text()).to.equal('bob:');
     expect(wrapper.find('.timestamp').text()).to.equal(
-      '2016-07-14T02:05:58.836Z'
+      'September 16th, 11:40 AM'
     );
     expect(wrapper.find('.content').text()).to.equal('hello world');
   });

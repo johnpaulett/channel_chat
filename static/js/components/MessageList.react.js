@@ -30,10 +30,11 @@ class MessageList extends React.Component {
 
     // scrollTop == 0 indicates element not scrollable. We start paging
     // when <100 (magically picked) from the top
-    if (node.scrollTop > 0 && node.scrollTop < 100) {
+    if (node.scrollTop > 0 && node.scrollTop == 1) { // < 100
       // TODO Don't handle if already requesting
       // console.log(node.scrollHeight, node.scrollTop, node.offsetHeight);
-      //this.handleMessageScroll(room);
+      //console.log(this.props)
+      this.props.handleMessageScroll(this.props.room, this.props.messages);
     }
   }
 
@@ -60,7 +61,7 @@ MessageList.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   }),
-  //handleMessageScroll: PropTypes.func.isRequired,
+  handleMessageScroll: PropTypes.func.isRequired,
 };
 
 export default MessageList;

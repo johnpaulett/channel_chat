@@ -27,26 +27,9 @@ const initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    // TODO Single Message Notification
-    /*
-       case ActionTypes.RECEIVE_MESSAGE:
-       if ('Notification' in window) {
-       Notification.requestPermission().then(function(permission) {
-       if (permission === 'granted') {
-       const n = new Notification(message.room, {
-       body: message.content,
-       });
-       n.onclick(function(event){
-       // event.preventDefault();
-       // open the room that contains this message
-       });
-       setTimeout(n.close.bind(n), 3000);
-       }
-       });
-       ... continue and add to state */
-
     case ActionTypes.RECEIVE_MESSAGES:
       // Ensure no duplicate messages
+      // TODO Consider enforcing order on state insert
       const messages = _.unionWith(
         state.messages,
         action.messages,

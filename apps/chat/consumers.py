@@ -4,13 +4,13 @@ from .engine import ChatEngine
 
 
 @channel_session
-def ws_add(message):
+def ws_connect(message):
+    # TODO Move many LOGIN_USER actions from ws_message into ws_add
     pass
 
 
 @channel_session
 def ws_message(message):
-    print(message.content)
     ChatEngine.dispatch(message)
 
 
