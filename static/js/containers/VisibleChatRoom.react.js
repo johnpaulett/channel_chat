@@ -5,8 +5,6 @@ import ChatRoom from '../components/ChatRoom.react';
 const getVisibleMessages = (messages, roomId) => (
   messages.filter(
     m => m.roomId === roomId
-  ).sort(
-    (a, b) => a.timestamp - b.timestamp
   )
 );
 

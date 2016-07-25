@@ -29,12 +29,19 @@ function reducer(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.RECEIVE_MESSAGES:
       // Ensure no duplicate messages
-      // TODO Consider enforcing order on state insert
       const messages = _.unionWith(
         state.messages,
         action.messages,
         (x, y) => x.id === y.id
       );
+      // Enforce sort order (future operations assume ASC order of
+      // state.messages)
+      // TODO Consider a smarter algorithm than _.unionWith().sort(),
+      // perhaps a Merge Sort since state.messages will already be sorted.
+      messages.sort(
+        (x, y) => x.id - y.id  // x.timestamp - y.timestamp
+      );
+
       return Object.assign({}, state, {
         messages,
       });
