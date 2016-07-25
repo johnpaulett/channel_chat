@@ -47,20 +47,8 @@ function reducer(state = initialState, action) {
       });
 
     case ActionTypes.RECEIVE_ROOMS:
-      const rooms = action.rooms;
-      let currentRoomId = state.currentRoomId;
-
-      // For the intial state, just open the first chat room.
-      // TODO Should be the last-opened room (via Cookie, server, or max ID)
-      // TODO Consider that this should dispatch SELECT_ROOM instead of directly
-      // setting currentRoomId
-      if (currentRoomId === null && rooms.length > 0) {
-        currentRoomId = rooms[0].id;
-      }
-
       return Object.assign({}, state, {
-        rooms,
-        currentRoomId,
+        rooms: action.rooms,
       });
 
     case ActionTypes.SELECT_ROOM:

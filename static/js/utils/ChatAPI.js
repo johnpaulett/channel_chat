@@ -1,9 +1,10 @@
 import ReconnectingWebSocket from 'shopify-reconnecting-websocket';
 import ActionTypes from '../constants';
 import _ from 'lodash';
+import { loginUser, selectRoom } from '../actions';
 
 
-const receiveSocketMessage = (dispatch, action) => {
+const receiveSocketMessage = (store, action) => {
   /* We cheat by using the Redux-style Actions as our
    * communication protocol with the server. This hack allows
    * the server to directly act as a Action Creator, which we
@@ -28,18 +29,26 @@ const receiveSocketMessage = (dispatch, action) => {
        }
        });
        ... continue to dispatch() */
+    case ActionTypes.RECEIVE_ROOMS:
+      store.dispatch(action);
+
+      // For the intial state, just open the first chat room.
+      // TODO Should be the last-opened room (via Cookie, server, or max ID)
+      const state = store.getState();
+      const rooms = action.rooms;
+      if (state.currentRoomId === null && rooms.length > 0) {
+        selectRoom(rooms[0])(store.dispatch);
+      }
+      break;
     case ActionTypes.RECEIVE_MESSAGES:
     default:
-      return dispatch(action);
+      return store.dispatch(action);
   }
 };
 
 const reconnect = (state) => {
-  // TODO loginUser did not work because of circular import -- refactor
-  ChatAPI.send({
-    type: ActionTypes.LOGIN,
-    user: state.currentUser,
-  });
+  // Re-login (need user on channel_session)
+  loginUser(state.currentUser)();
 
   // TODO Delay the REQUEST_MESSAGES until after the LOGIN returns
   // Ensure we did not miss any messages
@@ -68,7 +77,7 @@ export const ChatAPI = {
   listen: (store) => {
     _socket.onmessage = (event) => {
       const action = JSON.parse(event.data);
-      receiveSocketMessage(store.dispatch, action);
+      receiveSocketMessage(store, action);
     };
 
     _socket.onopen = () => {

@@ -83,8 +83,10 @@ TODO
 * Implement an unread message count next to the ``<Room />``.
 * Avoid re-requesting messages for a room when switching between rooms.
 * Implement intelligent "infinite scroll" when scrolling back on a room's
-  history (basic onScroll has been implemented).
-* Better workflow for initial post-login.
+  history. Basic onScroll has been implemented, but should trigger prior to
+  ``scrollTop == 0``, should display a loading indicator, and should stay pinned
+  to location of current messages in view.
+* Better workflow for initial post-login (e.g. user's last open room).
 * Implement `@handle` parsing and linking.
 * Implement the Notification Browser API to provide OS-level alerts on new
   messages.

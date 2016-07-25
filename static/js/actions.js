@@ -32,7 +32,7 @@ export function requestPriorMessages(room, messages) {
 }
 
 export function selectRoom(room) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     // Ask the server for the messages for the current room.
     requestMessages(room);
 
