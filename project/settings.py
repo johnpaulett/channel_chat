@@ -10,11 +10,10 @@ def abspath(*args):
 # load the apps folder
 sys.path.append(abspath('apps'))
 
-
-SECRET_KEY = ')y5ui0=l3^%h1e_&z@7ep9+!$@bb8f$83a_jc4g7u2!b!_&$(e'
-
+# Set in local_settings.py
+SECRET_KEY = None
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -121,3 +120,9 @@ CHANNEL_LAYERS = {
         'ROUTING': 'project.routing.channel_routing',
     },
 }
+
+try:
+    # Allow overriding of settings from project/local_settings.py
+    from .local_settings import *  # noqa
+except ImportError:
+    pass
