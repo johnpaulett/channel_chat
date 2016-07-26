@@ -11,6 +11,11 @@ Demonstration of a WebSockets-based chat server, utilizing:
 
 https://github.com/johnpaulett/channel_chat
 
+.. image::
+   https://channel-chat.johnpaulett.com/static/docs/channel-chat.gif
+   :scale: 50%
+
+
 How it works
 ------------
 
@@ -91,3 +96,31 @@ TODO
 * Implement the Notification Browser API to provide OS-level alerts on new
   messages.
 * Provide message search.
+
+
+Running
+--------
+
+The system has been tested with Ubuntu 14.04, node.js 6.0.3, Python 3.4::
+
+  git clone https://github.com/johnpaulett/channel_chat
+  cd channel_chat
+
+Add :file:`project/local_settings.py`, with a ``SECRET_KEY`` and optionally
+``DEBUG``:
+
+  SECRET_KEY = 'mysecret'
+  DEBUG = True
+
+Continue::
+
+  nvm use 6  # assumes using nvm to install node.js 6
+  make env
+  make static
+  make createdb
+  make migrate
+  make serve
+
+To run the test suites (mocha and Python unittest)::
+
+  make test
