@@ -25,7 +25,8 @@ static:
 	# Assumes prior `nvm use 6`
 	npm install
 	npm run less
-	npm start
+	npm run build
+	$(MANAGE) collected_static --noinput
 
 test-py:
 	$(MANAGE) test apps

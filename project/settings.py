@@ -109,6 +109,8 @@ STATICFILES_DIRS = [
     # TODO Better loadint
     abspath('node_modules/bootstrap/fonts'),
 ]
+STATIC_ROOT = abspath('collected_static')
+
 
 # channels
 CHANNEL_LAYERS = {
