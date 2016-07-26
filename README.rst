@@ -107,7 +107,7 @@ The system has been tested with Ubuntu 14.04, node.js 6.0.3, Python 3.4::
   cd channel_chat
 
 Add :file:`project/local_settings.py`, with a ``SECRET_KEY`` and optionally
-``DEBUG``:
+``DEBUG``::
 
   SECRET_KEY = 'mysecret'
   DEBUG = True
