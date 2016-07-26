@@ -26,7 +26,7 @@ static:
 	npm install
 	npm run less
 	npm run build
-	$(MANAGE) collected_static --noinput
+	$(MANAGE) collectstatic --noinput
 
 test-py:
 	$(MANAGE) test apps
