@@ -1,4 +1,4 @@
-from channels import Group
+from channels import Group, DEFAULT_CHANNEL_LAYER, channel_layers
 from chat.models import Message, Room, User
 from django.db.models import Q
 
@@ -64,10 +64,10 @@ class ChatEngine(ActionEngine):
             for other_user in User.objects.exclude(id=user.id):
                 room = Room.objects.create()
                 room.users = [user, other_user]
-                rooms.append((room.id, room.name(user)))
+                rooms.append(room)
         else:
             rooms = [
-                (room.id, room.name(user)) for room in
+                room for room in
                 Room.objects.filter(users=user).distinct()
             ]
 
@@ -75,25 +75,35 @@ class ChatEngine(ActionEngine):
         self.send({
             'type': constants.RECEIVE_ROOMS,
             'rooms': [
-                {'id': room_id, 'name': room_name}
-                for room_id, room_name in rooms
-            ]
+                {'id': room.id, 'name': room.name(user)}
+                for room in rooms
+            ],
         })
 
-        # Broadcast the user's
-        # TODO HOW TO CREATE NEW GROUP()
-        for room_id, room_name in rooms:
+        # Broadcast the user's joining
+        for room in rooms:
             # Pre-create a room channel
-            room_channel = self.get_room_channel(room_id)
+            room_channel = self.get_room_channel(room.id)
             self.add(room_channel)
 
-            # Notify the other user
-            #TODO
-            other_user = room_name  # FIXME when creating group chats
-            #self.send_to_group(self.get_control_channel(other_user), {
-            #    'type': constants.LOGIN_SUCCESS,
-            #    'user': username
-            #})
+            if user_created:
+                other_user = room.name(user)  # FIXME when creating group chats
+
+                # Attach the other users' open socket channels to the room
+                other_channels = channel_layers[DEFAULT_CHANNEL_LAYER]._group_channels(
+                    self.get_control_channel(other_user)
+                )
+                for channel in other_channels:
+                    Group(room_channel).add(channel)
+
+                # Notify the other users that a new user was created
+                self.send_to_group(self.get_control_channel(other_user), {
+                    'type': constants.RECEIVE_ROOMS,
+                    'rooms': [
+                        {'id': room.id, 'name': room.name(other_user)}
+                        for room in rooms
+                    ],
+                })
 
     def SEND_MESSAGE(self, action):
         username = self.message.channel_session['user']
