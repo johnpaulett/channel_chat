@@ -12,7 +12,7 @@ Demonstration of a WebSockets-based chat server, utilizing:
 https://github.com/johnpaulett/channel_chat
 
 .. image::
-   https://channel-chat.johnpaulett.com/static/docs/channel-chat.gif
+   https://raw.githubusercontent.com/johnpaulett/channel_chat/master/static/docs/channel-chat.gif
    :scale: 50%
 
 
