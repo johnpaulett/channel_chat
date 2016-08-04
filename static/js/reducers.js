@@ -37,7 +37,8 @@ function reducer(state = initialState, action) {
       // Enforce sort order (future operations assume ASC order of
       // state.messages)
       // TODO Consider a smarter algorithm than _.unionWith().sort(),
-      // perhaps a Merge Sort since state.messages will already be sorted.
+      // perhaps a <strike>Merge Sort</strike> since state.messages will already be sorted.
+      // Insertion Sort is what we likely want (thanks Jason)
       messages.sort(
         (x, y) => x.id - y.id  // x.timestamp - y.timestamp
       );
